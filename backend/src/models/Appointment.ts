@@ -14,7 +14,7 @@ class Appointment {
 
     // sem passar parametro - default varchar
     @Column()
-    provider: string;
+    provider_id: string;
 
     @Column('time without time zone')
     date: Date;
