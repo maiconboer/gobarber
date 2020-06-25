@@ -3,6 +3,12 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '../config/auth';
 
+interface TokenPayload {
+    iat: number;
+    exp: number;
+    sub: string;
+}
+
 // validação do token JWT
 export default function ensureAuthenticated(
     request: Request,
@@ -22,7 +28,11 @@ export default function ensureAuthenticated(
     try {
         const decoded = verify(token, authConfig.jwt.secret);
 
-        console.log(decoded);
+        const { sub } = decoded as TokenPayload;
+
+        request.user = {
+            id: sub,
+        };
 
         return next();
     } catch (error) {
