@@ -4,6 +4,8 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
+import getValidationErrors from '../../utils/getValidationErros';
+
 import logoImg from '../../assets/logo.svg';
 
 import Input from '../../components/Input';
@@ -16,6 +18,8 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = useCallback(async (data: object) => {
     try {
+      formRef.current?.setErrors({});
+
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome obrigatório'),
         email: Yup.string()
@@ -28,7 +32,9 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
     } catch (error) {
-      console.log(error);
+      const errors = getValidationErrors(error);
+
+      formRef.current?.setErrors(errors);
     }
   }, []);
 
