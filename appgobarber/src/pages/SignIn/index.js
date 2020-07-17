@@ -14,17 +14,27 @@ import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErros';
 
+import { useAuth } from '../../hooks/AuthContext';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-
 import logoImg from '../../assets/logo.png';
 
-import { Container, Title, ForgotPassword, ForgotPasswordText,CreateAccountButton, CreateAccountButtonText } from './styles';
+import {
+  Container,
+  Title,
+  ForgotPassword,
+  ForgotPasswordText,
+  CreateAccountButton,
+  CreateAccountButtonText
+} from './styles';
 
 const SignIn = () => {
   const formRef = useRef('');
   const passwordInputRef = useRef('');
+
   const navigation = useNavigation();
+  const { signIn } = useAuth();
 
   const handleSigIn = useCallback(
     async (data) => {
@@ -42,12 +52,11 @@ const SignIn = () => {
           abortEarly: false,
         });
 
-        // await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
 
-        // history.push('/dashboard');
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErrors(error);
@@ -62,7 +71,7 @@ const SignIn = () => {
           'Ocorreu um erro ao fazer login, cheque as credenciais'
         )
       }
-    }, []);
+    }, [signIn]);
 
   return (
     <>
