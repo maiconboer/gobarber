@@ -1,4 +1,18 @@
 # gobarber 💈
-Projeto de APP para gerenciamento de barbearia (back-end, front-end e mobile)
+Projeto de APP para gerenciamento de barbearia.
 
-Em construção - 🔨🚀
+Em construção - 🔨
+
+-------------------------------------------
+
+## back-end
+
+
+
+-------------------------------------------
+## front-end
+
+
+
+-------------------------------------------
+## mobile
